@@ -1,4 +1,4 @@
-const socket = io('https://proyo-chat-module.vercel.app/chats');
+const socket = io('https://proyo-chat-module.vercel.app');
 const chat = document.getElementById('chat');
 const usernameInput = document.getElementById('usernameInput');
 const messageInput = document.getElementById('messageInput');
@@ -24,11 +24,14 @@ function addMessage(username, message) {
 
 // Send message on button click
 sendButton.addEventListener('click', () => {
-    const username = usernameInput.value;
-    const message = messageInput.value;
+    const username = usernameInput.value.trim();
+    const message = messageInput.value.trim();
     if (username && message) {
+        console.log('Sending message:', { username, message });
         socket.emit('sendMessage', { username, message });
         messageInput.value = '';
+    } else {
+        console.warn('Username or message is empty!');
     }
 });
 

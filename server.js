@@ -10,7 +10,7 @@ const Chat = require('./models/Chat');
 const app = express();
 
 const server = http.createServer(app);
-const io = new Server(server, {
+const io = require('socket.io')(server, {
     cors: {
         origin: "https://proyo-chat-module.vercel.app",
         methods: ["GET", "POST"],
@@ -23,6 +23,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 
 // MongoDB setup
 mongoose.connect("mongodb+srv://ddugar:omDUX1qvsnZoGIDT@legosets.fsc8a.mongodb.net/?retryWrites=true&w=majority&appName=LegoSets", {
@@ -31,14 +33,14 @@ mongoose.connect("mongodb+srv://ddugar:omDUX1qvsnZoGIDT@legosets.fsc8a.mongodb.n
 });
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "views/index.html"));
+    res.redirect('/chats')
 })
 
 // API route to fetch chat history
 app.get('/chats', async (req, res) => {
     try {
         const chats = await Chat.find().sort({ timestamp: 1 });
-        res.json(chats);
+        res.render('index',{chats});
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

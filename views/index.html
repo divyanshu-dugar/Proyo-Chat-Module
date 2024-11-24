@@ -8,10 +8,21 @@
 </head>
 <body>
     <h1>Proyo Technologies - Real-Time Chat</h1>
-        <div id="chat"></div>
-        <input id="usernameInput" type="text" placeholder="Enter your name" />
-        <input id="messageInput" type="text" placeholder="Type a message" />
-        <button id="sendButton">Send</button>
+    <div id="chat">
+        <% if (chats && chats.length) { %>
+            <% chats.forEach(chat => { %>
+                <div>
+                    <strong><%= chat.username %></strong>: <%= chat.message %>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No messages yet. Start the conversation!</p>
+        <% } %>
+    </div>
+
+    <input id="usernameInput" type="text" placeholder="Enter your name" />
+    <input id="messageInput" type="text" placeholder="Type a message" />
+    <button id="sendButton">Send</button>
 
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
     <script src="/js/index.js"></script>

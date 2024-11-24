@@ -1,11 +1,11 @@
-const socket = io('http://localhost:3000');
+const socket = io('https://proyo-chat-module.vercel.app/');
 const chat = document.getElementById('chat');
 const usernameInput = document.getElementById('usernameInput');
 const messageInput = document.getElementById('messageInput');
 const sendButton = document.getElementById('sendButton');
 
 // Load chat history from server
-fetch('http://localhost:3000/chats')
+fetch('https://proyo-chat-module.vercel.app/chats')
     .then(response => response.json())
     .then(data => {
         data.forEach(chat => {

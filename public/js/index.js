@@ -1,4 +1,4 @@
-const socket = io('https://proyo-chat-module.vercel.app/');
+const socket = io('https://proyo-chat-module.vercel.app/chats');
 const chat = document.getElementById('chat');
 const usernameInput = document.getElementById('usernameInput');
 const messageInput = document.getElementById('messageInput');
